@@ -6,6 +6,8 @@
 #define MASTER 0
 #define CLIENT 1
 
+//#define Serial Serial
+
 volatile unsigned long read_ts = 0;
 volatile unsigned long led_ts = 0;
 
@@ -27,8 +29,8 @@ void setup() {
   pinMode(STATUS_LED, OUTPUT);
   pinMode(DSC_CLK, INPUT_PULLUP);
   pinMode(DSC_DATA, INPUT_PULLUP);
-  Serial1.begin(115200);
-  Serial1.println("DSC KeyBus Gateway 0.1\r\n");
+  Serial.begin(115200);
+  Serial.println("DSC KeyBus Gateway 0.1\r\n");
   
   cli();  
  // TCCR0A = 0; // Dsiable counter 0 (and its interrupts)
@@ -144,16 +146,16 @@ bad_msg:
 
 
 void print_msg() {
-   Serial1.print("M [B: "); Serial1.print(byte_count, DEC);
-    Serial1.print(" b: "); Serial1.print(bit_count, DEC);        
-    Serial1.print("]: ");
+   Serial.print("M [B: "); Serial.print(byte_count, DEC);
+    Serial.print(" b: "); Serial.print(bit_count, DEC);        
+    Serial.print("]: ");
     for (int i = 0; i <= byte_count; i++) {
-      Serial1.print((unsigned char)cur_msg[MASTER][i], HEX); Serial1.print(" ");
+      Serial.print((unsigned char)cur_msg[MASTER][i], HEX); Serial.print(" ");
     }
-    Serial1.print("\tC: ");
+    Serial.print("\tC: ");
     for (int i = 0; i <= byte_count; i++) {
-      Serial1.print((unsigned char)cur_msg[CLIENT][i], HEX); Serial1.print(" ");
+      Serial.print((unsigned char)cur_msg[CLIENT][i], HEX); Serial.print(" ");
     }    
-    Serial1.println();}
+    Serial.println();}
 
 
